@@ -9,14 +9,11 @@ MONGODB_URI = os.getenv("DB_URI")
 # print(MONGODB_URI)
 
 async def get_db():
-
     try:
-        client = AsyncIOMotorClient(MONGODB_URI)
-        db = client["mindfull-recovery"] # Connect to the database
-        yield db  # Yield the database object
-        # pymongo.errors.ConnectionFailure
-
-    except pymongo.errors.ConnectionFailure as e:
+        client = MongoClient(MONGODB_URI)
+        db = client["mindfull-recovery"]  # Connect to the database
+        return db
+    except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to connect to database: {e}"

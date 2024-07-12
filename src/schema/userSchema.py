@@ -22,7 +22,17 @@ class UserBase(BaseModel):
     cooling_methods: List[str] = Field(...)
     goals: List[str] = Field(...)
 
-
+class UserResponse(BaseModel):
+    username: str = Field(min_length=4,max_length=20)
+    name: str = Field(max_length=25)
+    email: EmailStr = Field(...)
+    age: int = Field(...)
+    gender: str = Field(...)
+    hobbies: List[str] = Field(...)
+    triggers: List[str] = Field(...)
+    solutions_tried: List[str] = Field(...)
+    cooling_methods: List[str] = Field(...)
+    goals: List[str] = Field(...)
 class UserUpdate(BaseModel):
     username: str = Field(...)
     name: str = Field(...)
