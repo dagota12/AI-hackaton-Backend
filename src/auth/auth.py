@@ -4,7 +4,7 @@ from typing import Annotated, Union
 import os
 import jwt
 from utils.utils import hash_pwd,verify_password
-from utils.logging_config import logger
+# from utils.logging_config import logger
 from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime, timedelta
 from database.database import get_db
@@ -72,8 +72,12 @@ async def authenticate_user(creditential: UserLogin, db: AsyncIOMotorClient) -> 
     # print(creditential)
     try:
         user = await db["users"].find_one({"username": creditential.username})
+        if not user:
+            raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"not Authorized",
+            )
         #verify the hashed password
-        print(user)
         print("VERIFYING PASSWORD",verify_password(creditential.password, user["password"]))
         if verify_password(creditential.password, user["password"]):
             return UserVerify(user_id=str(user["_id"]), username=user["username"])

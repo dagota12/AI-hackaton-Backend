@@ -5,7 +5,7 @@ from pymongo import MongoClient
 import pymongo
 from fastapi import HTTPException, status
 load_dotenv() #load enviromental variables
-MONGODB_URI = os.getenv("DB_URI")
+MONGODB_URI = os.getenv("ATLAS_URI")
 # print(MONGODB_URI)
 
 async def get_db():
