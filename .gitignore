@@ -70,3 +70,5 @@ poetry.lock  # If using Poetry
 
 # FastAPI cache files
 .fastapi-cache/
+#logs files
+*.log
