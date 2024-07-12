@@ -19,11 +19,20 @@ class UserBase(BaseModel):
     cooling_methods: List[str] = Field(...)
     goals: List[str] = Field(...)
 
+
+class UserUpdate(BaseModel):
+    username: str = Field(...)
+    name: str = Field(...)
+    age: int = Field(...)
+    gender: str = Field(...)
 class UserCreate(UserBase):
     username: str = Field(...)
     password: str = Field(...)
+#may be not that important
+class UserVerify(BaseModel):
+    user_id: str = Field(...)
+    username: str = Field(...)
 
-    
 class UserLogin(BaseModel):
     username: str = Field(...)
     password: str = Field(...)
