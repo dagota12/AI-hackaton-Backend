@@ -72,7 +72,13 @@ async def authenticate_user(credential: UserLogin, db: MongoClient) -> UserVerif
     # Implement DB user authentication logic here for now just an example
     try:
         user =  db["users"].find_one({"username": credential.username})
+        if not user:
+            raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"no such User",
+            )
         # verify the hashed password
+        # print(user)
         if verify_password(credential.password, user["password"]):
             return UserVerify(user_id=str(user["_id"]), username=user["username"])
     except Exception as e:
@@ -97,7 +103,7 @@ async def login(credential: Annotated[OAuth2PasswordRequestForm, Depends()], db:
 
 # sends token for the user
 @router.post("/login")
-async def login(credential: Annotated[OAuth2PasswordRequestForm, Depends()], db: MongoClient = Depends(get_db)):
+async def login(credential: UserLogin, db: MongoClient = Depends(get_db)):
     user = await authenticate_user(credential, db)
     access_token = create_access_token(user)
     return {"access_token": access_token, "token_type": "bearer"}
