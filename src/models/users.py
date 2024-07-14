@@ -5,14 +5,14 @@ class Gender(Enum):
     male = "male"
     female = "female"
 class User(BaseModel):
-    username: str = Field(..., min_length=3)
-    email: EmailStr
-    password: str = Field(..., min_length=8)
-    name: str
-    age: int
-    gender: str
-    hobbies: list[str] = []
-    triggers: list[str] = []
-    solutions_tried: list[str] = []
-    cooling_methods: list[str] = []
-    goals: list[str] = []
+    username: str = Field(min_length=4,max_length=20)
+    password: str = Field(min_length=4,max_length=12)
+    name: str = Field(max_length=25)
+    email: EmailStr = Field(...)
+    age: int = Field(...)
+    gender: str = Field(...)
+    hobbies: List[str] = Field(...)
+    triggers: List[str] = Field(...)
+    solutions_tried: List[str] = Field(...)
+    cooling_methods: List[str] = Field()
+    goals: List[str] = Field()

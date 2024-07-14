@@ -13,6 +13,18 @@ class UserBase(BaseModel):
     username: str = Field(min_length=4,max_length=20)
     password: str = Field(min_length=4,max_length=12)
     name: str = Field(max_length=25)
+    email: EmailStr = Field(default="")
+    age: int = Field(...)
+    gender: str = Field(...)
+    hobbies: List[str] = Field(...)
+    triggers: List[str] = Field(...)
+    solutions_tried: List[str] = Field(...)
+    cooling_methods: List[str] = Field(default=[])
+    goals: List[str] = Field(default=[])
+
+class UserResponse(BaseModel):
+    username: str = Field(min_length=4,max_length=20)
+    name: str = Field(max_length=25)
     email: EmailStr = Field(...)
     age: int = Field(...)
     gender: str = Field(...)
@@ -21,8 +33,6 @@ class UserBase(BaseModel):
     solutions_tried: List[str] = Field(...)
     cooling_methods: List[str] = Field(...)
     goals: List[str] = Field(...)
-
-
 class UserUpdate(BaseModel):
     username: str = Field(...)
     name: str = Field(...)
